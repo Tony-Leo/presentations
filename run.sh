@@ -1,25 +1,16 @@
 #! /bin/bash
 
 WATCH_DIRS='public,.'
-WATCH_TYPES='hbs|json|js|css'
+WATCH_TYPES='html|json|js|css'
 
 
 cleanupEnvironment() {
   echo "---------------------------------------------------------------------"
   echo "Killing all node processes (sry if you had others :/ )"
   killall node
-
-  # after a keystroke
-#  echo "Stopping nginx"
-#  sudo nginx -s stop
-
   echo "Everything Stopped. G2G!"
-
   exit
 }
-
-# echo "Starting up nginx"
-# sudo nginx -c $PWD/config/local/nginx.conf
 
 case $1 in
 -debug)

@@ -1,7 +1,7 @@
 {
   "name": "MathDay",
   "version": "1.0.0",
-  "description": "The Presentation for UT",
+  "description": "The Presentation for UT Sonia Kovalevsky Math Day",
   "homepage": "https://sites.google.com/site/liminbraganza",
   "scripts": {
     "test": "grunt jshint",
