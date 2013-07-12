@@ -5,8 +5,8 @@ var app = express();
 // Configuration
 app.configure(function(){
   app.set('title', 'Limin Shen');
-  // app.set('views', __dirname + '/server/views');
-  // app.set('view engine', 'jade');
+  app.set('views', __dirname + '/public');
+  app.set('view engine', 'jade');
   app.use(express.methodOverride());
   app.use(express.bodyParser());
   app.use(express.static(__dirname + '/public'));
@@ -26,9 +26,6 @@ app.configure('development', function(){
     app.use(express.static(__dirname + '/public')); //dir of the currently executing script.
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
-
-
-// app.get('/', routes.index);
 
 
 app.listen(1234);
