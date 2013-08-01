@@ -1,7 +1,7 @@
 {
   "name": "MathDay",
   "version": "1.0.0",
-  "description": "The Presentation for UT Sonia Kovalevsky Math Day",
+  "description": "The Presentations",
   "homepage": "https://sites.google.com/site/liminbraganza",
   "scripts": {
     "test": "grunt jshint",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/salami162/MathDay.git"
+    "url": "git://github.com/salami162/presentations.git"
   },
   "engines": {
     "node": "~0.8.0"
