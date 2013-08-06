@@ -7,7 +7,6 @@ Integration Code
 ------
 ### Scout file
 How does scout file version works?
-how offen do we expire our scout file?
 How does it trigger bv-app-all.js?
 How does it do the prefetch?
 

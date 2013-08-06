@@ -6,7 +6,6 @@ var app = express();
 app.configure(function () {
   app.set('title', 'Limin Shen');
   app.set('views', __dirname + '/public');
-  app.set('view engine', 'jade');
   app.use(express.methodOverride());
   app.use(express.bodyParser());
   app.use(express['static'](__dirname + '/public'));

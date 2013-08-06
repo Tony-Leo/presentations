@@ -52,6 +52,10 @@
           <p>
             The lastest BazaarVoice consumer facing client-side JavaScript application.
           </p>
+          <br />
+          <p>
+            We use <a href="//backbonejs.org">Backbone.js</a> as our framework; <a href="//handlebarsjs.com">Handlebars.js</a> as our templating engine; and <a href="learnboost.github.io/stylus/docs/js.htm">stylus</a> for CSS.
+          </p>
           <aside class="notes">
             The content you are seeing on our client sites is Firebird.
           </aside>
@@ -61,100 +65,151 @@
           <h2>How do we launch C2013?</h2>
           <ul>
             <li>Provision the client in Config Hub.</li>
-            <li>Add integration code</li>
+            <li><a href="#/3">Integration C2013 on Client's site.</a></li>
             <li>Test and Launch.</li>
           </ul>
         </section>
 
         <section>
-          <h2>Integration Code</h2>
-            <pre>
-              <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-<div id="BVSummaryContainer"></div>;
-<div id="BVRRContainer"></div>;
+          <h2>What you Need for Integration?</h2>
+          <ul>
+            <li>script tag to scout file.</li>
+            <li>divs for display content.</li>
+            <li>integration code.</li>
+          </ul>
+              <pre>
+                <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+<script type="text/javascript" src="http://display.ugc.bazaarvoice.com/static/CLIENTNAME/en_US/bvapi.js"></script>
 
-<script type="text/javascript" src="http://display.ugc.bazaarvoice.com/static/Travelocity/en_US/bvapi.js"></script>
+<div id="BVSummaryContainer"></div>
+<div id="BVRRContainer"></div>
 
 <script>
+  $BV.configure('global', { productId : 'ProductID123' });
   $BV.ui('rr', 'show_reviews', {
-    productId : '38458',
-    subjectType : 'product',
     doShowContent : function () {
-      // show tab if reviews are on a hidden tab
+      // If the container is hidden (such as behind a tab), put code here to make it visible (open the tab).
     }
   });
 </script>
-              </code>
-            </pre>
+                </code>
+              </pre>
         </section>
 
         <section>
           <section>
-            <h2>Sout file - bvapi.js</h2>
+            <h2>Scout file</h2>
+            <h3><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/en_US/bvapi.js">bvapi.js</a></h3>
             <p>
-              we have version, we create BV namespace under window.
+              It is a single JavaScript snippet (usually less than 10K gzipped) contains client-specific configurations.
             </p>
+            <br />
             <p>
-              You can learn and practise right in your broswer.  
-            </p>
-            <p>
-              No special setup needed.  No special tool needed.
+              The scout file has a very short TTL(time-to-live).  This ensures the new deployment can be picked up very fast.
             </p>
           </section>
           <section>
-            <h2>Let's give it a try:</h2>
+            <h2>Scout file</h2>
+            <h3><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/en_US/bvapi.js">Does several things</a></h3>
+              <ul>
+                <li>Contains a version, which directly ties to the deployment information from Config Hub</li>
+                <li>Loads the correct version of REAL firebird JavaScript file. (bv-app-all.js)</li>
+                <li>Prefetch the data if the browser allowes.</li>
+                <li>Cookie the implementation if A/B testing is setup.</li>
+                <li>Stack the $BV.ui calls into $BV._apiQueue for future executions.</li>
+              </ul>
           </section>
         </section>
 
         <section>
-          <h2>Powerful!</h2>
-          <p>
-            JavaScript empowers you to do many cool things:
-          </p>
-          <ul>
-            <li class="fragment">Page : Manipulate DOM Elements.</li>
-            <li class="fragment">User : Handle User Interactions.</li>
-            <li class="fragment">Server : Communicate/Exchange Data.</li>
-          </ul>
-          <p class="fragment">With the new libraries, such as jQuery, Backbone, Ember, JavaScript is involving and getting more and more exciting.</p>
-        </section>
-
-<!--        <section>
-          <h2>With the Page</h2>
-          <ul>
-            <li>Modify display context.</li>
-            <li>Change page layout.</li>
-            <li>Change styles.</li>
-          </ul>
+          <section>
+            <h2>Secret Source</h2>
+            <h3><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/Main%20Site/485/0025/en_US/scripts/bv-app-all.js">bv-app-all.js</a></h3>
+            <p>
+              This is the final build version of Firebird app JavaScript file, which launches a full-blown client-side JavaScirpt application.
+            </p>
+            <br />
+            <p>
+              Different from the scout file, bv-app-all.js has a longer TTL that enables longer server side caching and provides better performance.
+            </p>
+          </section>
+          <section>
+            <h2><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/Main%20Site/485/0025/en_US/scripts/bv-app-all.js">bv-app-all.js</a></h2>
+            <p>We use <a href="http://requirejs.org/">RequireJS</a>(a JS file and module loader) to load our bootstrap file.</p>
+            <br />
+            <p>Bootstrap file reads the $BV._apiQuese, which is stacked in scout file, and execute one by one sequentially.</p>
+          </section>
+          <section>
+            <h2><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/Main%20Site/485/0025/en_US/scripts/bv-app-all.js">$BV.ui('rr', 'show_reviews', {...})</a></h2>
+            <p>When certain $BV.ui call is made, we created models/views map to the display content based on the client's configuration.</p>
+            <img src="/images/Travelocity.png" alt="Travelocity">
+            <!-- pics -->
+          </section>
+          <section>
+            <h2>Models and Views</h2>
+            <a href="/images/models.png" target="_blank">
+              <img src="/images/models.png" alt="various models">
+            </a>
+          </section>
+          <section>
+            <h2>Models and Views</h2>
+            <a href="/images/models_console.png" target="_blank">
+              <img src="/images/models_console.png" alt="models in the console">
+            </a>
+          </section>
+          <section>
+            <h2>Models and Views</h2>
+            <ul>
+              <li>Models are responsible for making request to the DevAPI asking for data.</li>
+              <li>Once the data is returned and processed, models tell view to render themselves.</li>
+              <li>Views take the data, compile them into HTML and inject the content into the assigned location.</li>
+            </ul>
+          </section>
         </section>
 
         <section>
-          <h2>With the User.</h2>
-          <ul>
-            <li>Response to events, e.g. Click, Drag & Drop.</li>
-            <li>Send notifications when needed.</li>
-          </ul>
+          <section>
+            <h2>How Firebird works with Config Hub?</h2>
+            <ul>
+              <li>You can visit Config Hub @ <a href="https://workbench.bazaarvoice.com/portal/app?service=page/PortalHome">https://workbench.bazaarvoice.com</a>.</li>
+              <li>Go to Settings/Manage Application.</li>
+              <li>Choose an implementation you would like to change.</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Now you can make changes</h2>
+            <a href="/images/confighub.png" target="_blank">
+              <img src="/images/confighub.png" alt="config hub">
+            </a>
+          </section>
+          <section>
+            <h2>Changes are saved in Config Document</h2>
+            <a href="/images/configdoc.png" target="_blank">
+              <img src="/images/configdoc.png" alt="config document">
+            </a>
+          </section>
+          <section>
+            <h2>Firebird updates accordingly</h2>
+            <a href="/images/loadmore.png" target="_blank">
+              <img src="/images/loadmore.png" alt="models with loadmore">
+            </a>
+          </section>
         </section>
 
         <section>
-          <h2>With the Server.</h2>
+          <h2>Other cool things we do</h2>
           <ul>
-            <li>Broader you communication scope.  Not limited for specific structured server.</li>
-            <li>Reduce unnecessary requests for better performance.</li>
-            <li>Update in the background for better user experience.</li>
+            <li>Combine CSS and JavaScript into one single file to minimize downloads.</li>
+            <li>Use <a href="https://github.com/premasagar/cleanslate">Cleanslate</a> to avoid our styles being overwrite by the client' sites.</li>
+            <li>Batch API requests to minimize the number of requests our app makes.</li>
+            <li>Instead of images, we use Pictos icon.</li>
+            <li>Return a <a href="http://api.jquery.com/promise/">Promise Object</a> for each $BV.ui call to notify the client when we are done injection.</li>
           </ul>
         </section>
--->
+
         <section>
           <h1>THE END</h1>
           <p>BY <a href="https://sites.google.com/site/liminbraganza">Limin Shen</a></p>
-        </section>
-
-        <section data-background="#007777">
-          <h2>
-            Let's have some fun with JavaScript!
-          </h2>
-          <h1><a href="http://jsbin.com/">Demo</a></h1>
         </section>
 
       </div>
