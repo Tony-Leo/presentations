@@ -51,10 +51,10 @@
           </a>
           <h2>About Me</h2>
           <p>
-            My name is Limin Shen.
+            My name is <a href="https://sites.google.com/site/liminbraganza">Limin Shen</a>.
           </p>
           <p>
-            I work for Bazaarvoice.
+            I work for <a href="https://www.bazaarvoice.com/">Bazaarvoice</a>.
           </p>
           <p>
             Write JavaScript on a daily basis. (client & server)
@@ -65,7 +65,7 @@
         <section>
           <h2>What is REST?</h2>
           <p>
-            REST - Representation state tranfer.
+            <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> - Representation state tranfer.
           </p>
           <br />
           <p>
@@ -74,7 +74,7 @@
         </section>
 
         <section>
-          <h2>What is REST?</h2>
+          <h2>About REST</h2>
           <p>
             REST architetural design consists of clients and servers. 
           </p>
@@ -93,14 +93,13 @@
         </section>
 
         <section>
-          <h2>Six Constraints</h2>
+          <h2>Guiding Principles</h2>
           <ul>
-            <li>Uniform Interface</li>
-            <li>Client-Server</li>
+            <li>Identification/existence of Resources</li>
+            <li>Manipulation of resources through these representations</li>
+            <li>Communication via a standardized interface (e.g. HTTP)</li>
+            <li>Layered System</li>
             <li>Stateless</li>
-            <li>Cacheable</li>
-            <li>Layered system</li>
-            <li>Code on Demand</li>
           </ul>
         </section>
 
@@ -156,59 +155,88 @@
         </section>
 
         <section>
-          <h2>Resource naming</h2>
-          <p>
-            A RESTful API essentially is a colleciton of URIs. 
-          </p> 
-          <br />
-          <ul>
-            <li>Well named resources ==> intuitive, easy to use.</li>
-            <li>Poorly designed ones ==> it can be very confusing.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Tips</h2>
-          <ul>
-            <li>
-              Each resource has its own address or URIs.
-            </li>
-            <li>
-              URIs shall adequately describes the resource.
-            </li>
-            <li>
-              URIs should follow a predictable, hierarchical structure to enhance understandability and usability
-            </li>
-            <li>
-              URIs should convey meaning to the consumer.
-            </li> 
-          </ul>
-          <br />
-          <br />
-          <h3>Examples</h3>
-          <pre>
-            <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-"GET" : statuses/retweets/:id
-"GET" : statuses/show/:id
-"POST" : statuses/destroy/:id
-"POST" : statuses/update/
-"POST" : statuses/retweet/:id
-            </code>
-          </pre>
+          <section>
+            <h2>Resource naming</h2>
+            <p>
+              A RESTful API essentially is a colleciton of URIs. 
+            </p> 
+            <br />
+            <ul>
+              <li>Well named resources ==> intuitive, easy to use.</li>
+              <li>Poorly designed ones ==> it can be very confusing.</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Tips</h2>
+            <ul>
+              <li>
+                Each resource has its own address or URIs.
+              </li>
+              <li>
+                URIs shall adequately describes the resource.
+              </li>
+              <li>
+                URIs should follow a predictable, hierarchical structure to enhance understandability and usability
+              </li>
+              <li>
+                URIs should convey meaning to the consumer.
+              </li> 
+            </ul>
+            <br />
+            <br />
+            <h3>Examples</h3>
+            <pre>
+              <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+  "GET" : statuses/retweets/:id
+  "GET" : statuses/show/:id
+  "POST" : statuses/destroy/:id
+  "POST" : statuses/update/
+  "POST" : statuses/retweet/:id
+              </code>
+            </pre>
+          </section>
         </section>
 
         <section>
           <h2>Data Type</h2>
-          <p>Favor JSON support, but unless the costs of offering both JSON and XML are staggering, offer them both. </p>
+          <p>Favor JSON support, but offering both JSON and XML are very helpful. </p>
           <br />
           <p>Ideally, let consumers switch between them by just changing an extension from .xml to .json.</p>
         </section>
 
         <section>
-          <h2>In Rails.</h2>
-          <p>Multiple Resources</p>
-          <pre>
-            <code data-trim contenteditable style="font-size: 14px; margin-top: 20px;">
+          <section>
+            <h2>In Rails.</h2>
+            <p>Rails embraces RESTful resource routing.</p>
+            <br />
+            <p>The route provides a mapping between HTTP verbs and URLs to controller actions.</p>
+            <br />
+            <p>How to create route.</p>
+            <pre>
+              <code data-trim contenteditable style="font-size: 14px; margin-top: 20px;">
+$ rake routes
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h2>Single Resource</h2>
+            <pre>
+              <code data-trim contenteditable style="font-size: 14px; margin-top: 20px;">
+REST request path    | Rails action name | Description 
+---------------------|-------------------|------------- 
+GET /profile/new     | new               | Render a form for creating the profile 
+POST /profile        | create            | Create a the profile from the received data 
+GET /profile         | show              | Render a the profile 
+GET /profile/edit    | edit              | Render a form for editing the profile 
+PUT /profile         | update            | Update the profile based on the received data 
+DELETE /profile      | destroy           | Destroy the profile           
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h2>Multiple Resources</h2>
+            <pre>
+              <code data-trim contenteditable style="font-size: 14px; margin-top: 20px;">
 REST request path    | Rails action name | Description 
 ---------------------|-------------------|------------- 
 GET /posts           | index             | Render a list of all post 
@@ -218,21 +246,9 @@ GET /posts/1         | show              | Render a single existing post
 GET /posts/1/edit    | edit              | Render a form for editing a single existing post 
 PUT /posts/1         | update            | Update a single existing post based on the received data 
 DELETE /posts/1      | destroy           | Destroy a single existing post
-            </code>
-          </pre>
-          <p>Single Resource</p>
-          <pre>
-            <code data-trim contenteditable style="font-size: 14px; margin-top: 20px;">
-REST request path    | Rails action name | Description 
----------------------|-------------------|------------- 
-GET /profile/new     | new               | Render a form for creating the profile 
-POST /profile        | create            | Create a the profile from the received data 
-GET /profile         | show              | Render a the profile 
-GET /profile/edit    | edit              | Render a form for editing the profile 
-PUT /profile         | update            | Update the profile based on the received data 
-DELETE /profile      | destroy           | Destroy the profile           
-            </code>
-          </pre>
+              </code>
+            </pre>
+          </section>
         </section>
 
         <section>
