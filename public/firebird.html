@@ -101,7 +101,7 @@
             <h2>Scout file</h2>
             <h3><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/en_US/bvapi.js">bvapi.js</a></h3>
             <p>
-              It is a single JavaScript snippet (usually less than 10K gzipped) contains client-specific configurations.
+              It is a single JavaScript snippet (usually around 5K gzipped) contains client-specific configurations.
             </p>
             <br />
             <p>
@@ -113,10 +113,10 @@
             <h3><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/en_US/bvapi.js">Does several things</a></h3>
               <ul>
                 <li>Contains a version, which directly ties to the deployment information from Config Hub</li>
-                <li>Loads the correct version of REAL firebird JavaScript file. (bv-app-all.js)</li>
-                <li>Prefetch the data if the browser allowes.</li>
+                <li>Loads the correct version of REAL firebird JavaScript file - <a href="http://display.ugc.bazaarvoice.com/static/Travelocity/Main%20Site/485/0025/en_US/scripts/bv-app-all.js">bv-app-all.js</a>.</li>
                 <li>Cookie the implementation if A/B testing is setup.</li>
                 <li>Stack the $BV.ui calls into $BV._apiQueue for future executions.</li>
+                <li>Prefetch the data if the browser allowes.</li>
               </ul>
           </section>
         </section>
@@ -137,7 +137,7 @@
             <h2><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/Main%20Site/485/0025/en_US/scripts/bv-app-all.js">bv-app-all.js</a></h2>
             <p>We use <a href="http://requirejs.org/">RequireJS</a>(a JS file and module loader) to load our bootstrap file.</p>
             <br />
-            <p>Bootstrap file reads the $BV._apiQuese, which is stacked in scout file, and execute one by one sequentially.</p>
+            <p>Bootstrap file reads the $BV._apiQueue, which is stacked in scout file, and execute one by one sequentially.</p>
           </section>
           <section>
             <h2><a href="http://display.ugc.bazaarvoice.com/static/Travelocity/Main%20Site/485/0025/en_US/scripts/bv-app-all.js">$BV.ui('rr', 'show_reviews', {...})</a></h2>
